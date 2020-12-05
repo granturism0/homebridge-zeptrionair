@@ -1,0 +1,55 @@
+{
+  "private": true,
+  "displayName": "Homebridge ZeptrionAir Plugin",
+  "name": "homebridge-zeptrionair",
+  "version": "0.0.1",
+  "description": "Homebridge Plugin for ZeptrionAir Devices. Implements some (but not all, due to API limitations) functions of a [ZeptrionAir](https://www.zeptrionair.ch) Smart Home Device.",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/granturism0/homebridge-zeptrionair#readme"
+  },
+  "bugs": {
+    "url": "https://github.com/granturism0/homebridge-zeptrionair/issues"
+  },
+  "engines": {
+    "node": ">=10.17.0",
+    "homebridge": ">0.4.53"
+  },
+  "main": "dist/index.js",
+  "scripts": {
+    "lint": "eslint src/**.ts",
+    "watch": "yarn run build && yarn link && nodemon",
+    "build": "rimraf ./dist && tsc",
+    "prepublishOnly": "yarn run lint && yarn run build",
+    "prepare": "yarn run lint && yarn run build",
+    "changelog": "changelog",
+    "release:candidate": "yarn version --prerelease --preid rc --no-git-tag-version && yarn publish --tag next",
+    "release:nightly": "yarn version --prerelease --preid nightly --no-git-tag-version && yarn publish --tag nightly",
+    "release:major": "yarn run prepare && changelog -M && git add CHANGELOG.md && git commit -m 'ci(docs): updated CHANGELOG.md' && yarn version --major && git push origin && git push origin --tags",
+    "release:minor": "yarn run prepare && changelog -m && git add CHANGELOG.md && git commit -m 'ci(docs): updated CHANGELOG.md' && yarn version --minor && git push origin && git push origin --tags",
+    "release:patch": "yarn run prepare && changelog -p && git add CHANGELOG.md && git commit -m 'ci(docs): updated CHANGELOG.md' && yarn version --patch && git push origin && git push origin --tags"
+  },
+  "keywords": [
+    "homebridge-plugin",
+    "zeptrion",
+    "zeptrionair",
+    "smarthome",
+    "iot"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "@types/node": "^14.14.6",
+    "@typescript-eslint/eslint-plugin": "^4.6.1",
+    "@typescript-eslint/parser": "^4.6.1",
+    "eslint": "^7.13.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "homebridge": "^1.1.6",
+    "nodemon": "^2.0.6",
+    "prettier": "2.2.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.5"
+  }
+}
